@@ -1,12 +1,20 @@
 
-# use Flask to render a template, redirecting to another url, and creating a URL.
+# Import dependencies
 from flask import Flask, render_template, redirect, url_for
-
-# use PyMongo to interact with our Mongo database.
 from flask_pymongo import PyMongo
-
-# use the scraping code, we will convert from Jupyter notebook to Python.
 import scraping
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+sentry_sdk.init(
+    dsn="https://87e3cacc60ed458d952598af6e0bb482@o985622.ingest.sentry.io/5942021",
+    integrations=[FlaskIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0
+)
 
 app = Flask(__name__)
 
@@ -23,7 +31,7 @@ def index():
 def scrape():
    mars = mongo.db.mars
    mars_data = scraping.scrape_all()
-   mars.update({}, mars_data, upsert=True)
+   mars.replace_one({}, mars_data, upsert=True)
    return redirect('/', code=302)
 
 if __name__ == "__main__":
