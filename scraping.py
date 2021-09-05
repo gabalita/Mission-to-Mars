@@ -139,31 +139,6 @@ def mission_to_mars(browser):
     # Return the data
     return hemisphere_image_urls
 
-# def mars_mission(browser):
-
-#     home_url = 'https://marshemispheres.com/'
-#     browser.visit(home_url)
-
-#     hemisphere_image_urls = []
-
-#     # 3. Write code to retrieve the image urls and titles for each hemisphere.
-#     for i in range(4):
-#        # Find the elements on each loop to avoid a stale element exception
-#        hemisphere = {}
-#        browser.find_by_tag("img.thumb")[i].click()
-#        sample_element = browser.links.find_by_text('Sample').first
-#        hemisphere["img_url"] = sample_element["href"]
-#        hemisphere["title"] = browser.find_by_css("h2.title").text
-
-#        # Append hemisphere object to list
-#        hemisphere_image_urls.append(hemisphere)
-#        # Finally, we navigate backwards
-#        browser.back()
-    
-#     browser.quit()
-#     print(hemisphere_image_urls)
-#     return hemisphere_image_urls
-
 if __name__ == "__main__":
 
     # If running as script, print scraped data
